@@ -1,0 +1,138 @@
+{
+    "基础": {
+        "套装": "/cn/base/suit/",
+        "传奇装备": "/cn/base/legendary/",
+        "远古传奇装备": "/cn/base/ancientlegendary/",
+        "传奇宝石": "/cn/base/legendarygem/",
+        "赫拉迪姆物品": "/cn/base/heratim/"
+    },
+    "技能": {
+        "野蛮人": {
+            "主动技能": "/cn/skill/barbarian/active/",
+            "被动技能": "/cn/skill/barbarian/passive/"
+        },
+        "猎魔人": {
+            "主动技能": "/cn/skill/demon-hunter/active/",
+            "被动技能": "/cn/skill/demon-hunter/passive/"
+        },
+        "巫医": {
+            "主动技能": "/cn/skill/witch-doctor/active/",
+            "被动技能": "/cn/skill/witch-doctor/passive/"
+        },
+        "魔法师": {
+            "主动技能": "/cn/skill/wizard/active/",
+            "被动技能": "/cn/skill/wizard/passive/"
+        },
+        "武僧": {
+            "主动技能": "/cn/skill/monk/active/",
+            "被动技能": "/cn/skill/monk/passive/"
+        },
+        "圣教军": {
+            "主动技能": "/cn/skill/crusader/active/",
+            "被动技能": "/cn/skill/crusader/passive/"
+        },
+        "死灵法师": {
+            "主动技能": "/cn/skill/necromancer/active/",
+            "被动技能": "/cn/skill/necromancer/passive/"
+        }
+    },
+    "护甲": {
+        "头部": {
+            "头盔": "/cn/item/helm/",
+            "灵石": "/cn/item/spirit-stone/",
+            "巫毒面具": "/cn/item/voodoo-mask/",
+            "魔法师帽": "/cn/item/wizard-hat/"
+        },
+        "肩部": {
+            "护肩": "/cn/item/pauldrons/"
+        },
+        "胸部": {
+            "胸甲": "/cn/item/chest-armor/",
+            "披风": "/cn/item/cloak/"
+        },
+        "手腕": {
+            "护腕": "/cn/item/bracers/"
+        },
+        "手部": {
+            "手套": "/cn/item/gloves/"
+        },
+        "腰部": {
+            "腰帶": "/cn/item/belt/",
+            "重型腰带": "/cn/item/mighty-belt/"
+        },
+        "腿部": {
+            "裤子": "/cn/item/pants/"
+        },
+        "脚部": {
+            "靴子": "/cn/item/boots/"
+        },
+        "珠宝": {
+            "护符": "/cn/item/amulet/",
+            "戒指": "/cn/item/ring/"
+        },
+        "副手": {
+            "盾牌": "/cn/item/shield/",
+            "符咒": "/cn/item/mojo/",
+            "法球": "/cn/item/orb/",
+            "箭袋": "/cn/item/quiver/",
+            "圣教军盾牌": "/cn/item/crusadershield/",
+            "魂匣": "/cn/item/necromancer-offhand/"
+        },
+        "追随者专用": {
+            "魔女魔饰": "/cn/item/enchantress-focus/",
+            "痞子徽记": "/cn/item/scoundrel-token/",
+            "圣殿骑士圣物": "/cn/item/templar-relic/"
+        }
+    },
+    "武器": {
+        "单手": {
+            "斧头": "/cn/item/axe-1h/",
+            "匕首": "/cn/item/dagger/",
+            "钉锤": "/cn/item/mace-1h/",
+            "长矛": "/cn/item/spear/",
+            "剑": "/cn/item/sword-1h/",
+            "祭祀刀": "/cn/item/ceremonial-knife/",
+            "拳套武器": "/cn/item/fist-weapon/",
+            "重武器": "/cn/item/mighty-weapon-1h/",
+            "连枷": "/cn/item/flail1-1h/",
+            "镰刀": "/cn/item/scythe-1h/"
+        },
+        "双手": {
+            "斧头": "/cn/item/axe-2h/",
+            "钉锤": "/cn/item/mace-2h/",
+            "长柄武器": "/cn/item/polearm/",
+            "法杖": "/cn/item/staff/",
+            "剑": "/cn/item/sword-2h/",
+            "降魔杖": "/cn/item/daibo/",
+            "重武器": "/cn/item/mighty-weapon-2h/",
+            "連枷": "/cn/item/flail2-2h/",
+            "双手镰刀": "/cn/item/scythe-2h/"
+        },
+        "远程": {
+            "弓": "/cn/item/bow/",
+            "十字弩": "/cn/item/crossbow/",
+            "手弩": "/cn/item/hand-crossbow/",
+            "魔杖": "/cn/item/wand/"
+        }
+    },
+    "其他": {
+        "消耗品": {
+            "药水": "/cn/item/potion/",
+            "打孔": "/cn/item/addsocket/"
+        },
+        "打造": {
+            "训练书页": "/cn/item/tome/",
+            "铁匠蓝图": "/cn/item/blacksmith-plan/",
+            "珠宝匠设计图": "/cn/item/jeweler-design/",
+            "打造材料": "/cn/item/crafting-material/"
+        },
+        "染料": "/cn/item/dye/",
+        "宝石": "/cn/item/gem/",
+        "任务": "/cn/item/quest/",
+        "其它": "/cn/item/misc/",
+        "工匠": {
+            "铁匠": "/cn/artisan/blacksmith/recipe/",
+            "珠宝匠": "/cn/artisan/jeweler/recipe/"
+        }
+    }
+}
