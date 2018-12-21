@@ -11,11 +11,11 @@ class ItemSpider(scrapy.Spider):
 
     def start_requests(self):
         pass
-        catalogue = json.load(
-            open('/home/gjt/workspace/d3scrapier/catalogue.json', 'r'))['护甲']
+        menus = json.load(
+            open('/Users/GJT/workspace/d3scrapier/catalogue.json', 'r'))
+        catalogue = {**menus['护甲'], **menus['武器'], **menus['其他']}
         for v in catalogue.values():
             for k, url in v.items():
-                self.items[k] = []
                 yield Request(base_url + url, callback=self.parse)
         
     def parse(self, response):
@@ -34,9 +34,7 @@ class ItemSpider(scrapy.Spider):
                 d['source'] = others[2]
                 d['item_level'] = others[3]
                 d['equip_level'] = others[4]
-                self.items[d['part']].append(d)
-        
-        json.dump(self.items, open('/home/gjt/workspace/d3scrapier/items_%s.json' % kind, 'w'), ensure_ascii=False)
+                yield d
 
     def extract_icon(self, response):
         raw_url = response.xpath('.//span/@style').extract_first()
