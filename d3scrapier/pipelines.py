@@ -6,6 +6,7 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import json
+from d3scrapier.tools.path_tools import get_data_folder
 
 
 class D3ScrapierPipeline(object):
@@ -15,16 +16,20 @@ class D3ScrapierPipeline(object):
 
 class JsonWriterPipeline(object):
     def open_spider(self, spider):
+        data_folder = get_data_folder()
         print('*'*50)
         print('Start serialize...')
-        self.file = open(spider.name + '.json', 'w')
+        if spider.name != 'default':
+            self.file = open(data_folder + '/' + spider.name + '.json', 'w')
 
     def close_spider(self, spider):
         print('*'*50)
         print('Finish serialize....')
-        self.file.close()
+        if spider.name != 'default':
+            self.file.close()
 
     def process_item(self, item, spider):
         line = json.dumps(dict(item), ensure_ascii=False) + '\n'
-        self.file.write(line)
+        if spider.name != 'default':
+            self.file.write(line)
         return item

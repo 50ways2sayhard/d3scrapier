@@ -1,6 +1,7 @@
 import scrapy
 from scrapy import Request
 from d3scrapier.spiders import base_url
+from d3scrapier.tools.url_tools import extract_url
 import json
 
 
@@ -8,12 +9,13 @@ class SkillSpider(scrapy.Spider):
     name = "skills"
 
     def start_requests(self):
-        menus = json.load(open('/Users/GJT/workspace/d3scrapier/catalogue.json', 'r'))
+        menus = json.load(
+            open('/Users/GJT/workspace/d3scrapier/catalogue.json', 'r'))
         skills = menus['技能']
         for values in skills.values():
             for url in values.values():
                 yield Request(base_url + url, callback=self.parse)
-        
+
     def parse(self, response):
         _ = response.xpath('//p[@class="m-seach-posi"]/a/text()').extract()
         job, kind = _[-2], _[-1]
@@ -25,7 +27,7 @@ class SkillSpider(scrapy.Spider):
             runes = desc[2].xpath('.//a/@name').extract()
             learn_level = desc[3].xpath('./text()').extract_first()
             yield {
-                "job":job,
+                "job": job,
                 "kind": kind,
                 "name": name,
                 "ref": ref,
@@ -36,9 +38,8 @@ class SkillSpider(scrapy.Spider):
             }
 
     def extract_icon(self, response):
-        import re
         raw_url = response.xpath('.//span/@style').extract_first()
-        return re.search('\((.+)\)', raw_url).group(1)
+        return extract_url(raw_url)
 
     def extract_name_ref(self, response):
         name = response.xpath('.//a/@name').extract_first()
