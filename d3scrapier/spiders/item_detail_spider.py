@@ -28,7 +28,8 @@ class ItemDetailSpider(scrapy.Spider):
         kind, clazz, limit, slot = self.parse_kind_class_limit_slot(details)
 
         # 护甲 攻击
-        raw_armor_weapon = details.xpath('.//ul[@class="item-armor-weapon"]/li')
+        raw_armor_weapon = details.xpath(
+            './/ul[@class="item-armor-weapon"]/li')
         armor_weapon = self.parse_armor_weapon(raw_armor_weapon)
 
         # 效果
@@ -37,16 +38,25 @@ class ItemDetailSpider(scrapy.Spider):
 
         # 套装效果
         raw_set = details.xpath('.//ul[@class="item-itemset"]')
+        set_effects = self.parse_set_effects(raw_set) if raw_set != [] else {}
 
         # 物品等级、耐久等
+        raw_extras = details.xpath('.//ul[@class="item-extras"]')
+        extras = self.parse_extras(raw_extras)
 
         # 描述
+        desc = self.parse_description(response)
 
         # wiki
+        wiki = self.parse_wiki(response)
 
         # 词缀
+        raw_cizhui = response.xpath('//div[@id="cizhui_table"]//table')
+        cizhui = self.parse_cizhui(raw_cizhui)
 
         # 掉落
+        raw_drop_table = response.xpath('//div[@class="m-diaoluo"]/table')
+        drop = self.parse_drop(raw_drop_table)
 
         yield {
             'name': name,
@@ -55,7 +65,12 @@ class ItemDetailSpider(scrapy.Spider):
             'limit': limit,
             'slot': slot,
             'armor_weapon': armor_weapon,
-            'effects': effects
+            'effects': effects,
+            'set': set_effects,
+            'extras': extras,
+            "description": desc,
+            "drop": drop,
+            "cizhui": cizhui
         }
 
     def parse_name(self, response):
@@ -92,24 +107,59 @@ class ItemDetailSpider(scrapy.Spider):
         return effects
 
     def parse_extras(self, response):
-        pass
+        d = {}
+        for each in response.xpath('./li'):
+            ex = each.xpath('./span/text()').extract()
+            d[ex[0]] = ex[1]
+
+        return d
 
     def parse_description(self, response):
-        pass
+        return response.xpath(
+            '//div[@class="item-flavor d3-color-orange serif"]/text()'
+        ).extract_first()
 
     def parse_wiki(self, response):
-        pass
+        return ''.join(
+            response.xpath('//div[@class="item-disc mb20 ovh"]//text()').
+            extract()).strip()
 
     def parse_cizhui(self, response):
-        pass
+        thead = response.xpath('./thead/tr/th//text()').extract()
+        cizhuis = []
+        for cizhui in response.xpath('./tbody/tr'):
+            values = []
+            for each in cizhui.xpath('./td'):
+                values.append(''.join(each.xpath('.//text()').extract()))
+            cizhuis.append(dict(zip(thead, values)))
+
+        return cizhuis
 
     def parse_set_effects(self, response):
         # 套装名
         set_name = ''.join(response.xpath('./li[1]//text()').extract())
-        
+
         # 套装部件名
+        pieces = response.xpath(
+            './li[@class="item-item-set-piece indent d3-color-gray"]//text()'
+        ).extract()
 
         # 套装效果
+        amount = response.xpath(
+            './li[@class="d3-color-gray item-itemset-bonus-amount"]//text()'
+        ).extract()
+        bonus = []
+        # for b in response.xpath(
+        #     './li[@class="d3-color-orange"]'):
+        bonus = [
+            ''.join(b.xpath('.//text()').extract())
+            for b in response.xpath('./li[@class="d3-color-orange"]')
+        ]
+        set_bonus = dict(zip(amount, bonus))
+
+        return {"set_name": set_name, "pieces": pieces, "bonus": set_bonus}
 
     def parse_drop(self, response):
-        pass
+        thead = response.xpath('./thead/tr/th//text()').extract()
+        body = response.xpath('./tbody/tr/td//text()').extract()
+        return dict(zip(thead, body))
