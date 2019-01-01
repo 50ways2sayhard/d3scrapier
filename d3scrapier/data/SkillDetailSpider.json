@@ -1,0 +1,62 @@
+{
+    "text": {
+        "name": "猛击",
+        "type": "物理",
+        "description": "猛烈打击一名敌人，对其造成 320% 的武器伤害。",
+        "consume": "生成： 6 点怒气",
+        "unlock_level": "解鎖于等級：1",
+        "hit_percent": "100%"
+    },
+    "runes": [
+        {
+            "unlock_level": "6",
+            "rune": {
+                "name": "霜咬",
+                "icon": "rune-c"
+            },
+            "element": "冰寒",
+            "description": "每次击中会冰冻 敌人 1.5 秒。敌人每 5 秒只能被猛击冰冻一次。",
+            "proc_coefficient": "100%"
+        },
+        {
+            "unlock_level": "13",
+            "rune": {
+                "name": "暴揍",
+                "icon": "rune-a"
+            },
+            "element": "电击",
+            "description": "使敌人受到暴击的几率提高 10%，持续 3 秒。猛击的伤害类型转换为闪电伤害。",
+            "proc_coefficient": "100%"
+        },
+        {
+            "unlock_level": "26",
+            "rune": {
+                "name": "痛殴",
+                "icon": "rune-b"
+            },
+            "element": "物理",
+            "description": "使用猛击后的 5 秒内，使你造成的伤害提高 4% 。该效果最多可叠加 3 层。",
+            "proc_coefficient": "100%"
+        },
+        {
+            "unlock_level": "44",
+            "rune": {
+                "name": "暴怒",
+                "icon": "rune-d"
+            },
+            "element": "火焰",
+            "description": "使生成的怒气提高至 9 点。猛击的伤害类型转换为火焰伤害。",
+            "proc_coefficient": "100%"
+        },
+        {
+            "unlock_level": "52",
+            "rune": {
+                "name": "粉碎",
+                "icon": "rune-e"
+            },
+            "element": "火焰",
+            "description": "每次击中都会引发一道冲击波，对主要敌人后方 26 码直线上的敌人造成 100% 的武器伤害（作为火焰伤害）。",
+            "proc_coefficient": "33.3%"
+        }
+    ]
+}
