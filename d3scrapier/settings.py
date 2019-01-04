@@ -14,6 +14,11 @@ BOT_NAME = 'd3scrapier'
 SPIDER_MODULES = ['d3scrapier.spiders']
 NEWSPIDER_MODULE = 'd3scrapier.spiders'
 
+# Splash
+SPLASH_URL = 'http://127.0.0.1:8050'
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'd3scrapier (+http://www.yourdomain.com)'
@@ -46,15 +51,19 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'd3scrapier.middlewares.D3ScrapierSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+   'd3scrapier.middlewares.D3ScrapierSpiderMiddleware': 543,
+   'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'd3scrapier.middlewares.D3ScrapierDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'd3scrapier.middlewares.D3ScrapierDownloaderMiddleware': 543,
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html

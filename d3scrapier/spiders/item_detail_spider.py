@@ -1,6 +1,8 @@
 import scrapy
 import json
 from scrapy import Request
+from scrapy_splash import SplashRequest
+import requests
 
 from d3scrapier.tools.path_tools import get_data_file
 from d3scrapier.tools.url_tools import extract_url
@@ -9,13 +11,19 @@ from d3scrapier.spiders import base_url
 
 class ItemDetailSpider(scrapy.Spider):
     name = "ItemDetailSpider"
-    start_urls = ['http://db.d.163.com/cn/item/prides-fall-80.html']
 
-    # def start_requests(self):
-    #     with open(get_data_file('items.json'), 'r') as items:
-    #         for line in items:
-    #             relative_url = json.loads(line)['ref']
-    #             yield Request(url=base_url + relative_url)
+    def start_requests(self):
+        urls = [
+            'http://db.d.163.com/cn/item/prides-fall-80.html',
+        ]
+
+        for url in urls:
+            # yield SplashRequest(url, self.parse, args={'wait': 0.5})
+            yield Request(url)
+        # with open(get_data_file('items.json'), 'r') as items:
+            # for line in items:
+                # relative_url = json.loads(line)['ref']
+                # yield Request(url=base_url + relative_url)
 
     def parse(self, response):
         # icon
@@ -52,7 +60,8 @@ class ItemDetailSpider(scrapy.Spider):
 
         # 词缀
         raw_cizhui = response.xpath('//div[@id="cizhui_table"]//table')
-        cizhui = self.parse_cizhui(raw_cizhui)
+        # cizhui = self.parse_cizhui(raw_cizhui)
+        cizhui = self.parse_cizhui(response)
 
         # 掉落
         raw_drop_table = response.xpath('//div[@class="m-diaoluo"]/table')
@@ -125,15 +134,30 @@ class ItemDetailSpider(scrapy.Spider):
             extract()).strip()
 
     def parse_cizhui(self, response):
-        thead = response.xpath('./thead/tr/th//text()').extract()
-        cizhuis = []
-        for cizhui in response.xpath('./tbody/tr'):
-            values = []
-            for each in cizhui.xpath('./td'):
-                values.append(''.join(each.xpath('.//text()').extract()))
-            cizhuis.append(dict(zip(thead, values)))
+        # 
+        # thead = response.xpath('./thead/tr/th//text()').extract()
+        # cizhuis = []
+        # for cizhui in response.xpath('./tbody/tr'):
+        #     values = []
+        #     for each in cizhui.xpath('./td'):
+        #         values.append(''.join(each.xpath('.//text()').extract()))
+        #     cizhuis.append(dict(zip(thead, values)))
 
-        return cizhuis
+        # return cizhuis
+        import re, json
+        jsurl = response.url[0:-5] + '-affix.js'
+        r = requests.get(jsurl)
+        raw_data = re.search('var CZdata = (\[\{.*\}\])', r.text).group(1)
+        data = json.loads(raw_data)
+        res = []
+        pattern = re.compile('<li class=\"d3-color-blue\">(.*) <span class=\"value\">')
+        for each in data:
+            d = {}
+            d['类型'] = each['type']
+            d['词缀名'] = each['name']
+
+            d['等级'] = each['lvl']
+
 
     def parse_set_effects(self, response):
         # 套装名
