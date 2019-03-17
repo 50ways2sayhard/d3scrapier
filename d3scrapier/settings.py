@@ -14,6 +14,8 @@ BOT_NAME = 'd3scrapier'
 SPIDER_MODULES = ['d3scrapier.spiders']
 NEWSPIDER_MODULE = 'd3scrapier.spiders'
 
+# MySQL
+MYSQL_ENGINE = 'mysql+pymysql://root:root@localhost:3306/d3?charset=utf8'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'd3scrapier (+http://www.yourdomain.com)'
@@ -67,6 +69,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'd3scrapier.pipelines.D3ScrapierPipeline': 300,
     'd3scrapier.pipelines.JsonWriterPipeline': 800,
+    'd3scrapier.pipelines.SQLWriterPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
